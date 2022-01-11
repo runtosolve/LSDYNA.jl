@@ -1,0 +1,9 @@
+name = "LSDYNA"
+uuid = "f471b46c-5fda-4cbd-8575-21a3e3b2d574"
+authors = ["Cris Moen <cris.moen@runtosolve.com>"]
+version = "0.1.0"
+
+[deps]
+Formatting = "59287772-0a20-5a39-b81b-1366585eb4c0"
+Parsers = "69de0a69-1ddd-5017-9359-2bf0b02dc9f0"
+Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
