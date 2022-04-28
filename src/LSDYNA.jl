@@ -1,9 +1,9 @@
 module LSDYNA
 
-export Resource, Kfile, Keyword, ASCII, Binary
+export Tools, Kfile, Keyword, Output, ASCII, Mesh
 
-include("Resource.jl")
-using .Resource 
+include("Tools.jl")
+using .Tools
 
 include("Kfile.jl")
 using .Kfile
@@ -11,10 +11,16 @@ using .Kfile
 include("Keyword.jl")
 using .Keyword
 
+include("Output.jl")
+using .Output
+
 include("ASCII.jl")
 using .ASCII
 
-include("Binary.jl")
-using .Binary
+include("Mesh.jl")
+using .Mesh
+
+include("Batch.jl")
+using .Batch
 
 end # module

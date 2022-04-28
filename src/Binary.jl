@@ -1,9 +1,10 @@
 module Binary
 
+using ..Tools
 
 function get_output(lines, target_string, num_points, skip_beginning_lines)
 
-    start_line = LSDYNA.find_target_line_in_output_file(target_string, lines)
+    start_line = Tools.find_target_line_in_output_file(target_string, lines)
 
     data = lines[(start_line + skip_beginning_lines + 1):(start_line + skip_beginning_lines + num_points)]
 
