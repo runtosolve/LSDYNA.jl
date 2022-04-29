@@ -77,7 +77,7 @@ function copy_model_group_remote_results_to_local(local_root_path, remote_root_p
 
     for i in eachindex(model_list)
 
-        copy_model_remote_results_to_local(local_root_path, remote_root_path, model_list[i], output_file_list)
+        Tools.copy_model_remote_results_to_local(local_root_path, remote_root_path, model_list[i], output_file_list)
 
     end
 
