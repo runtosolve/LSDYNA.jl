@@ -73,5 +73,16 @@ function generate_qsub_model_group_batch_file(qsub_batch_filename, local_model_g
 
 end
 
+function copy_model_group_remote_results_to_local(local_root_path, remote_root_path, model_list, output_file_list)
+
+    for i in eachindex(model_list)
+
+        copy_model_remote_results_to_local(local_root_path, remote_root_path, model_list[i], output_file_list)
+
+    end
+
+end
+
+
 
 end #module

@@ -78,5 +78,40 @@ function generate_qsub_sh_file(qsub_filename_with_local_path, model_name, filena
 end
 
 
+function create_model_local_results_directory(local_root_path, model)
+
+    local_model_path = joinpath(local_root_path, model)
+    local_model_results_path = joinpath(local_model_path, "results")
+
+    run(`mkdir $local_model_results_path`)
+
+end
+
+function copy_model_remote_results_to_local(local_root_path, remote_root_path, model, output_file_list)    
+
+    remote_model_path = joinpath(remote_root_path, model)
+    
+    local_model_path = joinpath(local_root_path, model)
+    local_model_results_path = joinpath(local_model_path, "results")
+
+    if !isdir(local_model_results_path)
+
+        create_model_local_results_directory(local_root_path, model)
+
+    end
+    
+    for i in eachindex(output_file_list)
+
+        remote_results_file_path = joinpath(remote_model_path, output_file_list[i])
+        run(`scp cdmoen@login-29-21.pod.penguincomputing.com:$remote_results_file_path $local_model_results_path `) 
+
+    end
+
+end
+
+
+
+
+
 
 end #module
