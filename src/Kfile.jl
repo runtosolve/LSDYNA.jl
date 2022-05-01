@@ -10,7 +10,7 @@ function get_node_geometry_from_lines(node_lines)
 
     for i = 1:num_nodes
 
-        io = split(node_lines[i][1:end])
+        io = split(node_lines[i][1:end], " ")
         io = filter(x->x != "", io)
         node_number = parse(Int, io[1])
         x = parse(Float64, io[2])
@@ -40,18 +40,23 @@ function get_solid_element_connectivity_from_lines(element_lines)
     element_connectivity = Array{Int64}(undef, (num_elements, 10))
 
     for i = 1:num_elements
-        opts = Parsers.Options(delim=' ', ignorerepeated=true, wh1=0x00)
-        io = IOBuffer(lstrip(element_lines[i]))
-        element_connectivity[i,1] = Parsers.parse(Float64, io, opts)
-        element_connectivity[i,2]= Parsers.parse(Float64, io, opts)
-        element_connectivity[i,3] = Parsers.parse(Float64, io, opts)
-        element_connectivity[i,4] = Parsers.parse(Float64, io, opts)
-        element_connectivity[i,5] = Parsers.parse(Float64, io, opts)
-        element_connectivity[i,6] = Parsers.parse(Float64, io, opts)
-        element_connectivity[i,7] = Parsers.parse(Float64, io, opts)
-        element_connectivity[i,8] = Parsers.parse(Float64, io, opts)
-        element_connectivity[i,9] = Parsers.parse(Float64, io, opts)
-        element_connectivity[i,10] = Parsers.parse(Float64, io, opts)
+
+        io = split(element_lines[i], " ")
+        io = filter(x->x != "", io)
+
+        # opts = Parsers.Options(delim=' ', ignorerepeated=true, wh1=0x00)
+        # io = IOBuffer(lstrip(element_lines[i]))
+
+        element_connectivity[i,1] = parse(Float64, io[1])
+        element_connectivity[i,2]= parse(Float64, io[2])
+        element_connectivity[i,3] = parse(Float64, io[3])
+        element_connectivity[i,4] = parse(Float64, io[4])
+        element_connectivity[i,5] = parse(Float64, io[5])
+        element_connectivity[i,6] = parse(Float64, io[6])
+        element_connectivity[i,7] = parse(Float64, io[7])
+        element_connectivity[i,8] = parse(Float64, io[8])
+        element_connectivity[i,9] = parse(Float64, io[9])
+        element_connectivity[i,10] = parse(Float64, io[10])
 
     end
 
