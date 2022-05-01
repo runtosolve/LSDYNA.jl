@@ -1,8 +1,6 @@
 
 module Kfile
 
-using Parsers
-
 
 function get_node_geometry_from_lines(node_lines)
 
@@ -12,12 +10,20 @@ function get_node_geometry_from_lines(node_lines)
 
     for i = 1:num_nodes
 
-        opts = Parsers.Options(delim=' ', ignorerepeated=true, wh1=0x00)
-        io = IOBuffer(lstrip(node_lines[i][1:end]))
-        node_number = Int(Parsers.parse(Float64, io, opts))
-        x = Parsers.parse(Float64, io, opts)
-        y = Parsers.parse(Float64, io, opts)
-        z = Parsers.parse(Float64, io, opts)
+        io = split(node_lines[i][1:end])
+        io = filter(x->x != "", io)
+        node_number = parse(Int, io[1])
+        x = parse(Float64, io[2])
+        y = parse(Float64, io[3])
+        z = parse(Float64, io[4])
+
+
+        # opts = Parsers.Options(delim=' ', ignorerepeated=true, wh1=0x00)
+        # io = IOBuffer(lstrip(node_lines[i][1:end]))
+        # node_number = Int(Parsers.parse(Float64, io, opts))
+        # x = Parsers.parse(Float64, io, opts)
+        # y = Parsers.parse(Float64, io, opts)
+        # z = Parsers.parse(Float64, io, opts)
 
         node_geometry[i] = (node_number, x, y, z)
 
