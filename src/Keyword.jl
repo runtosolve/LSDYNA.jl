@@ -181,7 +181,7 @@ function CONTROL_IMPLICIT_EIGENVALUE(neig, center, lflag, lftend, rflag, rhtend,
 
     list[1] = "*CONTROL_IMPLICIT_EIGENVALUE"
     list[2] = "\$#    neig    center     lflag    lftend     rflag    rhtend    eigmth    shfscl"
-    fmt = "{:10d}{:5.4E}{:10d}{:5.3E}{:10d}{:5.4E}{:10d}{:10.5f}"
+    fmt = "{:10d}{:5.4E}{:10d}{:5.4E}{:10d}{:5.4E}{:10d}{:10.5f}"
     list[3]  = format(fmt, neig, center, lflag, lftend, rflag, rhtend, eigmth, shfscl)
     list[4] = "\$#  isolid     ibeam    ishell   itshell    mstres    evdump   mstrscl "
     fmt = "{:10d}{:10d}{:10d}{:10d}{:10d}{:10d}{:10.5f}"
