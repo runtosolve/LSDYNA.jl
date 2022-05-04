@@ -1,0 +1,14 @@
+
+line param  0 0.000000 0.000000 0 1.000000 2.000000
+line param  0 1.000000 2.000000 0 3.000000 4.300000
+line param  0 3.000000 4.300000 0 7.500000 3.600000
+elgenerate shelltype 6
+genselect target occobject
+occfilter add Edge
+genselect whole
+elgenerate shell curvedrag 1 1 200.35 13 0 0 0 1 0 0 0 1 2 3
+elgenerate accept
+genselect whole
+dupnode merge 0.001000
+geomag del  1e 2e 3e
+save keyword "/Users/crismoen/.julia/dev/LSDYNA/test/extrusion/extrusion_test.k"
