@@ -3,7 +3,7 @@ module Mesh
 
 using ..Tools
 
-using Printf, Formatting
+using Printf, Formatting, CrossSection
 
 
 function mesh_STEP_file_with_shells(step_filename, kfile_filename, cfile_filename, cfile_path, mesh_size, prepost_version)

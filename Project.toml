@@ -4,6 +4,8 @@ authors = ["Cris Moen <cris.moen@runtosolve.com>"]
 version = "0.1.0"
 
 [deps]
+CrossSection = "a0443d1a-7a62-4d3d-b993-57eb2183b07a"
 Formatting = "59287772-0a20-5a39-b81b-1366585eb4c0"
+LinesCurvesNodes = "74a74c3a-221d-4cd1-a4eb-c3c8149e7592"
 Printf = "de0858da-6303-5e67-8744-51eddeeeb8d7"
 Serialization = "9e88b42a-f829-5b0c-bbe9-9e923198166b"
