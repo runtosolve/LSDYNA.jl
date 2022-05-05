@@ -95,7 +95,7 @@ function extrude_cross_section_with_solid_elements(centerline_coords, z, t)
     num_solid_element_layers = 2
     num_cross_sections = length(z)
     num_cross_section_nodes_layer = size(centerline_coords[1])[1]
-    num_nodes_cross_section = (num_solid_element_layers + 1) * num_nodes_centerline
+    num_nodes_cross_section = (num_solid_element_layers + 1) * num_cross_section_nodes_layer
 
     cross_section = [centerline_coords[1] centerline_coords[2]]
     unit_node_normals = CrossSection.Tools.calculate_cross_section_unit_node_normals(cross_section)
