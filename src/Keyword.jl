@@ -110,6 +110,20 @@ function CONSTRAINED_NODAL_RIGID_BODY(pid, cid, nsid, pnode, iprt, drflag, rrfla
 end
 
 
+function CONSTRAINED_NODE_SET_ID(cnsid, nsid, dof, tf)
+
+    list = Matrix{String}(undef, 3, 1)
+
+ 
+    list[1] = "*CONSTRAINED_NODE_SET_ID"
+    fmt = "{:10d}"
+    list[2] = format(fmt, cnsid)    
+    fmt = "{:10d}{:10d}{:10.4E}"   
+    list[3]  = format(fmt, nsid, dof, tf) 
+
+    return list
+
+end
 
 
 
