@@ -62,7 +62,7 @@ function generate_qsub_sh_file(qsub_filename_with_local_path, model_name, filena
     lines[2] = "#PBS -q B30"
     lines[3] = "#PBS -l nodes=1:ppn=1"
     lines[4] = "#PBS -j oe"
-    lines[5] = "#PBS -N " * model_name * ".sh" 
+    lines[5] = "#PBS -N " * model_name 
     lines[6] = "#PBS -r n"
     lines[7] = "#PBS -l walltime=" * walltime
     lines[8] = "#PBS -l qos=serial"

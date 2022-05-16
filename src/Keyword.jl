@@ -679,7 +679,7 @@ function NODE(nodes)
 
     #Fill the node_list vector.
     for i=1:num_nodes
-        list[i+1] = format(fmt, string(nodes[i][1]), nodes[i][2], nodes[i][3], nodes[i][4], string(0), string(0))
+        list[i+1] = format(fmt, string(Int(nodes[i][1])), nodes[i][2], nodes[i][3], nodes[i][4], string(0), string(0))
     end
 
     return list
