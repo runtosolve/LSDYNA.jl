@@ -6,7 +6,7 @@ function write_beam_element_history_file(dplot_path, cfile_filename, results_fil
 
     list = Vector{String}(undef, 8)
 
-    list[1] = "open d3plot " * '"' * dplot_path * "d3plot" * '"'
+    list[1] = "open d3plot " * '"' * joinpath(dplot_path, "d3plot") * '"'
     list[2] = "genselect target element"
     list[3] = "genselect target beam"
     list[4] = "genselect beam add beam " * string(beam_element) * "/0"
@@ -25,7 +25,7 @@ function write_node_history_file(dplot_path, cfile_filename, results_filename, n
 
     list = Vector{String}(undef, 7)
 
-    list[1] = "open d3plot " * '"' * dplot_path * "d3plot" * '"'
+    list[1] = "open d3plot " * '"' * joinpath(dplot_path, "d3plot") * '"'
     list[2] = "genselect target node"
     list[3] = "genselect node add node " * string(node_number) * "/0"
     list[4] = "ntime " * string(history_component)
