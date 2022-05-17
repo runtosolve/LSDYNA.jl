@@ -78,7 +78,7 @@ function write_node_history_file_from_binary(dplot_path, cfile_filename, results
     list[3] = "binaski load " * '"' * joinpath(dplot_path, "binout0000") * '"'
     list[4] = "binaski fileswitch " * '"' * joinpath(dplot_path, "binout0000") * '"'
     list[5] = "binaski loadblock /" * branch
-    list[6] = "binaski plot " * '"' * joinpath(dplot_path, "binout0000") *  '"' * " " * branch * " 0 $num_nodes 1 " * node_list * " " * history_component  
+    list[6] = "binaski plot " * '"' * joinpath(dplot_path, "binout0000") *  '"' * " " * branch * " $num_nodes 1 " * node_list * " " * history_component  
     list[7] = "xyplot 1 savefile curve_file " * '"' * results_filename * '"'
     list[8] = "xyplot 1 donemenu"
     list[9] = "exit"
