@@ -533,7 +533,7 @@ function ELEMENT_BEAM(eid, pid, n1, n2, n3, rt1, rr1, rt2, rr2, local_coord)
 end
 
 
-function ELEMENT_SOLID(solid_elements, part_ID)
+function ELEMENT_SOLID(solid_elements)
 
     #Initialize the element list.
     num_solid_elements = size(solid_elements)[1]
@@ -548,8 +548,8 @@ function ELEMENT_SOLID(solid_elements, part_ID)
     #Fill the element_list vector.
     for i=1:num_solid_elements
 
-        list[i+1] = format(fmt, solid_elements[i,1], part_ID[i], solid_elements[i,2], solid_elements[i,3],
-                            solid_elements[i,4], solid_elements[i,5], solid_elements[i,6], solid_elements[i,7], solid_elements[i,8], solid_elements[i,9])
+        list[i+1] = format(fmt, solid_elements[i,1], solid_elements[i,2], solid_elements[i,3], solid_elements[i,4],
+                            solid_elements[i,5], solid_elements[i,6], solid_elements[i,7], solid_elements[i,8], solid_elements[i,9], solid_elements[i,10])
     end
 
     return list 
