@@ -287,7 +287,21 @@ function extrude_cross_section_with_solid_elements(cross_section, z, t)
 
 end
 
+function define_rigid_beam_elements(follower_nodes, master_node, part_ID)
 
+    num_beams = length(follower_nodes)
+
+    beams= zeros(Int64, (num_beams, 10))
+
+    for i = 1:num_beams
+
+        beams[i, :] = [i part_ID master_node follower_nodes[i] 0 0 0 0 0 2]
+
+    end
+
+    return beams
+
+end
 
 
 end #module 
