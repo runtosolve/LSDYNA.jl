@@ -630,7 +630,7 @@ function MAT_ELASTIC_TITLE(title, mid, ro, e, pr, da, db)
     
     list[2] = title
     list[3] = "\$#     mid        ro         e        pr        da        db  not used    "
-    fmt = "{:10d}{:9.4e} {:9.1f} {:9.1f} {:9.1f} {:9.1f} {:9.1f}"
+    fmt = "{:10d}{:9.4e}{:10.1f}{:10.1f}{:10.1f}{:10.1f}{:10.1f}"
     list[4]  = format(fmt, mid, ro, e, pr, da, db, 0.0)
 
     return list
