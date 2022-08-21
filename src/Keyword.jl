@@ -646,7 +646,7 @@ function MAT_PIECEWISE_LINEAR_PLASTICITY_TITLE(title, mid, ro, e, pr, sigy, etan
     
     list[2] = title
     list[3] = "\$#     mid        ro         e        pr      sigy      etan      fail      tdel"
-    fmt = "{:10d}{:9.4E} {:9.1f} {:9.1f} {:9.1f} {:9.1f}{:9.4E} {:9.1f}"
+    fmt = "{:10d}{:9.4E}{:10.1f}{:10.1f}{:10.1f}{:10.1f}{:9.4E}{:10.1f}"
     list[4]  = format(fmt, mid, ro, e, pr, sigy, etan, fail, tdel)
 
     list[5] = "\$#       c         p      lcss      lcsr        vp  "
