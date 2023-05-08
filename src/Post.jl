@@ -1,4 +1,4 @@
-module Output
+module Post
 
 using ..Tools
 
@@ -91,20 +91,44 @@ end
 
 
 
+function get_results_from_curveplot(results_nodes, filename, num_points)
+
+    lines = Tools.read_text_file(filename)
+
+    time_steps = Vector{Vector{Float64}}(undef, length(results_nodes))
+    results = Vector{Vector{Float64}}(undef,  length(results_nodes))
+
+    for i in eachindex(results_nodes)
+        target_string = "T-" * string(results_nodes[i])
+        line_index = Tools.find_target_line_in_text_file(target_string, lines)
+
+        num_skip_lines = 2
+        data = lines[line_index+ num_skip_lines + 1:line_index + num_skip_lines + num_points]
+
+        time_steps[i] = [parse(Float64, data[i][5:20]) for i=1:num_points]
+        results[i] = [parse(Float64, data[i][24:40]) for i=1:num_points]
+
+    end
 
 
+    return time_steps, results
 
-function get_results_from_saved_curveplot(lines, target_string, num_points, skip_beginning_lines)
-
-    start_line = Tools.find_target_line_in_output_file(target_string, lines)
-
-    data = lines[(start_line + skip_beginning_lines + 1):(start_line + skip_beginning_lines + num_points)]
-
-    x = [parse(Float64, data[i][5:20]) for i=1:num_points]
-    y = [parse(Float64, data[i][24:40]) for i=1:num_points]
-
-    return x, y
 end
+
+
+
+
+# function get_results_from_saved_curveplot(lines, target_string, num_points, skip_beginning_lines)
+
+#     start_line = Tools.find_target_line_in_text_file(target_string, lines)
+
+#     data = lines[(start_line + skip_beginning_lines + 1):(start_line + skip_beginning_lines + num_points)]
+
+#     x = [parse(Float64, data[i][5:20]) for i=1:num_points]
+#     y = [parse(Float64, data[i][24:40]) for i=1:num_points]
+
+#     return x, y
+# end
 
 end  #module
 

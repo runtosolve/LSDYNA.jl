@@ -343,7 +343,7 @@ function CONTROL_TERMINATION(endtim, endcyc, dtmin, endeng, endmas, nosol)
     list[1] = "*CONTROL_TERMINATION"
     
     list[2] = "\$#  endtim    endcyc     dtmin    endeng    endmas     nosol "
-    fmt = "{:10.5f} {:9d} {:9.1f} {:9.1f}{:9.4E} {:9d}"
+    fmt = "{:10.4E} {:9d} {:9.1f} {:9.1f}{:9.4E} {:9d}"
     list[3]  = format(fmt, endtim, endcyc, dtmin, endeng, endmas, nosol)
 
     return list
@@ -496,7 +496,7 @@ function DEFINE_CURVE_TITLE(title, lcid, sidr, sfa, sfo, offa, offo, dattyp, lci
 
     list[5] = "\$#                a1                  o1  "
 
-    fmt = "{:20.5f}{:20.5f}"
+    fmt = "{:20.5E}{:20.5E}"
     for i = 1:num_points
 
         list[i+5] = format(fmt, curve.x[i], curve.y[i])
@@ -557,7 +557,7 @@ function ELEMENT_SOLID(solid_elements)
 end
 
 
-function ELEMENT_SHELL(elements, part_ID)
+function ELEMENT_SHELL(elements)
 
     #Initialize the element list.
     num_elements = size(elements)[1]
@@ -572,8 +572,8 @@ function ELEMENT_SHELL(elements, part_ID)
     #Fill the element_list vector.
     for i=1:num_elements
 
-        list[i+1] = format(fmt, elements[i,1], part_ID[i], elements[i,2], elements[i,3],
-                            elements[i,4], elements[i,5], elements[i,6], elements[i,7], elements[i,8], elements[i,9])
+        list[i+1] = format(fmt, elements[i,1], elements[i,2], elements[i,3], elements[i,4],
+                            elements[i,5], elements[i,6], elements[i,7], elements[i,8], elements[i,9], elements[i,10])
     end
 
     return list 

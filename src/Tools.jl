@@ -2,7 +2,7 @@
 module Tools
 
 
-function find_target_line_in_output_file(target_string, lines)
+function find_target_line_in_text_file(target_string, lines)
 
     for i in eachindex(lines)
 
@@ -17,7 +17,7 @@ function find_target_line_in_output_file(target_string, lines)
 
 end
 
-function read_output_file(filename)
+function read_text_file(filename)
 
     file = open(filename,"r")
 
@@ -54,9 +54,9 @@ function create_model_run_directories(model_paths)
 
 end
 
-function generate_qsub_sh_file(qsub_filename_with_local_path, model_name, filename, walltime)
+function generate_qsub_sh_file(qsub_filename_with_local_path, model_name, filename, walltime, lsdyna_version)
 
-    lines = Array{String}(undef, 14)
+    lines = Array{String}(undef, 13)
 
     lines[1] = "#PBS -S /bin/bash"
     lines[2] = "#PBS -q B30"
@@ -68,10 +68,10 @@ function generate_qsub_sh_file(qsub_filename_with_local_path, model_name, filena
     lines[8] = "#PBS -l qos=serial"
     lines[9] = "LSDYNA_INPUT=" * filename
     lines[10] = "cd \$PBS_O_WORKDIR"
-    lines[11] = "module load lsdyna/12.0.0"
-    lines[12] = "export LSTC_LICENSE_SERVER=64.227.2.64"
-    lines[13] = "time mpirun -np 1 mpp971-d I=\$LSDYNA_INPUT"
-    lines[14] = "exit \$?"
+    lines[11] = "module load lsdyna/" * lsdyna_version
+    # lines[12] = "export LSTC_LICENSE_SERVER=" * license_server_address
+    lines[12] = "time mpirun -np 1 mpp971-d I=\$LSDYNA_INPUT"
+    lines[13] = "exit \$?"
 
     write_file(qsub_filename_with_local_path, lines)
 
