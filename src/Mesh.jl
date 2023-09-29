@@ -90,20 +90,20 @@ function extrude_cross_section_with_shells(nodes, kfile_name, kfile_path, cfile_
 end
 
 
-function extrude_cross_section_with_solid_elements(cross_section, z, t, part_number)
+function extrude_open_cross_section_with_solid_elements(cross_section, z, t, part_number)
 
     num_solid_element_layers = 2
     num_cross_sections = length(z)
     num_cross_section_nodes_layer = size(cross_section, 1)
     num_nodes_cross_section = (num_solid_element_layers + 1) * num_cross_section_nodes_layer
 
-    unit_node_normals = CrossSection.Tools.calculate_cross_section_unit_node_normals(cross_section)
+    unit_node_normals = CrossSection.Geometry.calculate_cross_section_unit_node_normals(cross_section)
 
     Δ = t/2
-    top_coords = CrossSection.Tools.get_coords_along_node_normals(cross_section, unit_node_normals, Δ)
+    top_coords = CrossSection.Geometry.get_coords_along_node_normals(cross_section, unit_node_normals, Δ)
 
     Δ = -t/2
-    bottom_coords = CrossSection.Tools.get_coords_along_node_normals(cross_section, unit_node_normals, Δ)
+    bottom_coords = CrossSection.Geometry.get_coords_along_node_normals(cross_section, unit_node_normals, Δ)
 
     X = [top_coords[i][1] for i in eachindex(cross_section)]
     Y = [top_coords[i][2] for i in eachindex(cross_section)]
@@ -177,6 +177,118 @@ function extrude_cross_section_with_solid_elements(cross_section, z, t, part_num
     return nodes, solid_elements
 
 end
+
+
+
+
+
+function extrude_closed_cross_section_with_solid_elements(cross_section, z, t, part_number)
+
+    num_solid_element_layers = 2
+    num_cross_sections = length(z)
+    num_cross_section_nodes_layer = size(cross_section, 1)
+    num_nodes_cross_section = (num_solid_element_layers + 1) * num_cross_section_nodes_layer
+    num_cross_section_nodes = num_nodes_cross_section
+
+    unit_node_normals = CrossSection.Geometry.calculate_cross_section_unit_node_normals(cross_section)
+
+    Δ = t/2
+    top_coords = CrossSection.Geometry.get_coords_along_node_normals(cross_section, unit_node_normals, Δ)
+
+    Δ = -t/2
+    bottom_coords = CrossSection.Geometry.get_coords_along_node_normals(cross_section, unit_node_normals, Δ)
+
+    X = [top_coords[i][1] for i in eachindex(cross_section)]
+    Y = [top_coords[i][2] for i in eachindex(cross_section)]
+
+    cross_section_nodes = [X Y]
+
+    X = [cross_section[i][1] for i in eachindex(cross_section)]
+    Y = [cross_section[i][2] for i in eachindex(cross_section)]
+
+    cross_section_nodes = [cross_section_nodes; [X Y] ]
+
+    X = [bottom_coords[i][1] for i in eachindex(cross_section)]
+    Y = [bottom_coords[i][2] for i in eachindex(cross_section)]
+    cross_section_nodes = [cross_section_nodes; [X Y] ]
+     
+    #Generate the nodal coordinate array for the whole model.
+
+    nodes = Array{Float64}(undef, 0, 3)
+    for i = 1:num_cross_sections
+
+        cross_section_nodes_xyz = [cross_section_nodes ones(Float64, num_nodes_cross_section) * z[i]]
+        nodes = vcat(nodes, cross_section_nodes_xyz)
+
+    end
+
+    #Calculate the number of solid elements in one layer of the cross-section.
+    num_solid_elements_cross_section_layer = num_cross_section_nodes_layer - 1
+
+    #Calculate the number of solid elements in the cross-section.
+    num_solid_elements_cross_section = num_solid_elements_cross_section_layer * num_solid_element_layers
+
+    #Define the number of model segments along the length.
+    num_model_segments = num_cross_sections - 1
+
+    #Calculate total number of solid elements in the model.
+    num_solid_elements = num_solid_elements_cross_section * num_model_segments
+
+    #Initialize the solid element definition array.
+
+    solid_elements = zeros(Int64, (num_solid_elements, 10))
+
+    element_number = 0
+
+    for k = 1:num_model_segments
+
+        for j = 1:num_solid_element_layers
+
+            for i=1:num_solid_elements_cross_section_layer
+
+                if i != num_solid_elements_cross_section_layer
+
+                    n_1 = i + (j - 1) * num_cross_section_nodes_layer + (k - 1) * num_cross_section_nodes
+                    n_2 = i + j * num_cross_section_nodes_layer + (k - 1) * num_cross_section_nodes
+                    n_3 = n_2 + 1
+                    n_4 = n_1 + 1
+                    n_5 = n_1 + num_cross_section_nodes
+                    n_6 = n_2 + num_cross_section_nodes
+                    n_7 = n_3 + num_cross_section_nodes
+                    n_8 = n_4 + num_cross_section_nodes
+
+                elseif i == num_solid_elements_cross_section_layer #for element that closes tube
+
+                    n_1 = i + (j - 1) * num_cross_section_nodes_layer + (k - 1) * num_cross_section_nodes
+                    n_2 = i + j * num_cross_section_nodes_layer + (k - 1) * num_cross_section_nodes
+                    n_3 = 1 + j * num_cross_section_nodes_layer + (k - 1) * num_cross_section_nodes
+                    n_4 = 1 + (j - 1) * num_cross_section_nodes_layer + (k - 1) * num_cross_section_nodes
+                    n_5 = n_1 + num_cross_section_nodes
+                    n_6 = n_2 + num_cross_section_nodes
+                    n_7 = n_3 + num_cross_section_nodes
+                    n_8 = n_4 + num_cross_section_nodes
+
+                end
+
+                element_number = element_number + 1
+
+                solid_element_cell = [element_number part_number n_1 n_2 n_3 n_4 n_5 n_6 n_7 n_8]
+
+                solid_elements[element_number, :] = solid_element_cell
+
+            end
+
+        end
+
+    end
+
+    return nodes, solid_elements
+
+end
+
+
+
+
 
 function define_rigid_beam_elements(follower_nodes, master_node, part_ID)
 
